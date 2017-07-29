@@ -9,10 +9,21 @@ class Location
     const SOUTH = 'S';
     const WEST = 'W';
 
+    /** @var int */
     public $x;
+
+    /** @var int */
     public $y;
+
+    /** @var  string */
     public $orientation;
 
+    /**
+     * Location constructor.
+     * @param $x
+     * @param $y
+     * @param $orientation
+     */
     public function __construct($x, $y, $orientation)
     {
         $this->x = (integer)$x;
@@ -20,6 +31,9 @@ class Location
         $this->orientation = $orientation;
     }
 
+    /**
+     * @return array
+     */
     public static function getClockwiseOrientations()
     {
         return [
@@ -30,13 +44,22 @@ class Location
         ];
     }
 
-    public function toString()
+    /**
+     * @return string
+     */
+    public function toString(): string
     {
         return "{$this->x} {$this->y} {$this->orientation}";
     }
 
+    /**
+     * @param string  $line
+     * @param boolean $orientationRequired
+     * @return Location
+     * @throws \Exception
+     */
     public static function getLocationFromString(
-        $line,
+        string $line,
         $orientationRequired = true
     ) {
         $line = trim($line);

@@ -33,7 +33,7 @@ class Rover implements MovableInterface
      */
     public function turnRight(): Location
     {
-        return $this->turn(+1);
+        return $this->turn(1);
     }
 
     /**
@@ -45,15 +45,19 @@ class Rover implements MovableInterface
         return $this->turn(-1);
     }
 
-    public function turn($value)
+    /**
+     * @param $value
+     * @return Location
+     */
+    public function turn($value): Location
     {
         $orientations = Location::getClockwiseOrientations();
         $currentPos = array_search($this->location->orientation, $orientations);
         $newPos = $currentPos + $value;
-        if ($newPos > (sizeof($orientations) - 1)) {
+        if ($newPos > (count($orientations) - 1)) {
             $newPos = 0;
         } elseif ($newPos < 0) {
-            $newPos = sizeof($orientations) - 1;
+            $newPos = count($orientations) - 1;
         }
         $this->location->orientation = $orientations[$newPos];
 

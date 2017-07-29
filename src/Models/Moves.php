@@ -14,9 +14,22 @@ class Moves
     /** @var  string */
     protected $instructions;
 
+    /** @var Location  */
+    protected $upperLimit;
+
+    /** @var Location  */
+    protected $lowerLimit;
+
+    /**
+     * Moves constructor.
+     * @param Rover    $rover
+     * @param string   $moves
+     * @param Location $upperLimit
+     * @param Location $lowerLimit
+     */
     public function __construct(
-        $rover,
-        $moves,
+        Rover $rover,
+        string $moves,
         Location $upperLimit,
         Location $lowerLimit
     ) {
@@ -26,10 +39,10 @@ class Moves
         $this->lowerLimit = $lowerLimit;
     }
 
-    protected $upperLimit;
-    protected $lowerLimit;
-
-    public static function validMoves()
+    /**
+     * @return array
+     */
+    public static function validMoves(): array
     {
         return [
             self::TURN_RIGHT,
@@ -38,7 +51,11 @@ class Moves
         ];
     }
 
-    public function processMoves()
+    /**
+     * @return Location
+     * @throws \Exception
+     */
+    public function processMoves(): Location
     {
         $moves = str_split($this->instructions);
         foreach ($moves as $move) {
@@ -69,6 +86,9 @@ class Moves
         return $this->rover;
     }
 
+    /**
+     * @throws \Exception
+     */
     public function checkOutOfBounds()
     {
         $location = $this->rover->getLocation();
