@@ -35,8 +35,10 @@ class Location
         return "{$this->x} {$this->y} {$this->orientation}";
     }
 
-    public static function getLocationFromString($line, $orientationRequired = true)
-    {
+    public static function getLocationFromString(
+        $line,
+        $orientationRequired = true
+    ) {
         $line = trim($line);
         $ordinates = explode(' ', $line);
         if (!array_key_exists(0, $ordinates) ||
@@ -46,9 +48,9 @@ class Location
                 throw new \Exception("X,Y coordinates missing on line {$line}");
             }
         }
-        if ($orientationRequired &&
-            !array_key_exists(2, $ordinates) &&
-            !in_array($ordinates[2], self::getClockwiseOrientations())) {
+        if ($orientationRequired && (!array_key_exists(2, $ordinates) ||
+                !in_array($ordinates[2], self::getClockwiseOrientations()))
+        ) {
             throw new \Exception('Invalid Orientation');
         }
 
