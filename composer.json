@@ -22,7 +22,14 @@
   },
   "autoload": {
     "psr-4": {
-      "Rover\\": ["src/", "tests/"]
+      "Rover\\": [
+        "src/",
+        "tests/"
+      ]
     }
+  },
+  "config": {
+    "process-timeout": 1800,
+    "bin-dir": "bin"
   }
 }
