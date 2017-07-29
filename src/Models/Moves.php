@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Rover\Models;
-
 
 class Moves
 {
@@ -51,7 +49,7 @@ class Moves
                 case self::TURN_LEFT:
                     $this->rover->turnLeft();
                     break;
-                case self::MOVE;
+                case self::MOVE:
                     $this->rover->move();
                     break;
                 default:
