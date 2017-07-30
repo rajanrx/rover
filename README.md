@@ -22,3 +22,4 @@ To generate the report run the following command and you can access coverage htm
 ```
 ./bin/phpunit --coverage-html ./report
 ```
+![Test Coverage](https://github.com/rajanrx/rover/blob/master/data/test-coverage.png)
