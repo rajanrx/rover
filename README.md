@@ -13,7 +13,7 @@ git clone https://github.com/rajanrx/rover.git && composer install
 and then run command
 
 ```
-php command.php --input 'data/input.txt' --output 'data/output.txt'
+php command.php --input 'data/sample-input.txt' --output 'data/sample-output.txt'
 ```
 
 # Test Coverage  (100% covered)
