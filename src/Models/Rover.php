@@ -6,7 +6,7 @@ use Rover\Models\Interfaces\MovableInterface;
 
 class Rover implements MovableInterface
 {
-    /** @var  Location */
+    /** @var  Location Location of rover*/
     protected $location;
 
     /**

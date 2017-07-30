@@ -29,16 +29,17 @@ class RoverManagerTest extends TestCase
             unlink($outputFile);
         }
         $this->instance->readInputFromFile(__DIR__ . '/../data/input.txt');
+        $this->assertNotNull($this->instance->upperRightCoordinates);
         $this->instance->moveRovers();
         $this->instance->writeOutPutToFile($outputFile);
         $this->assertStringEqualsFile($outputFile, "1 3 N\n5 1 E\n");
         $this->assertInstanceOf(
             Location::class,
-            RoverManager::$upperRightCoordinates
+            $this->instance->upperRightCoordinates
         );
-        $this->assertEquals(RoverManager::$upperRightCoordinates->x, 5);
-        $this->assertEquals(RoverManager::$upperRightCoordinates->y, 5);
-        $this->assertNull(RoverManager::$upperRightCoordinates->orientation);
+        $this->assertEquals($this->instance->upperRightCoordinates->x, 5);
+        $this->assertEquals($this->instance->upperRightCoordinates->y, 5);
+        $this->assertNull($this->instance->upperRightCoordinates->orientation);
     }
 
     /**
@@ -92,7 +93,7 @@ class RoverManagerTest extends TestCase
      */
     public function testWillThrowExceptionIfInitialPositionIsNotSet()
     {
-        RoverManager::$upperRightCoordinates = null;
+        $this->instance->upperRightCoordinates = null;
         $this->instance->moveRovers();
     }
 }

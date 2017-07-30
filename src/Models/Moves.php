@@ -8,16 +8,16 @@ class Moves
     const TURN_LEFT = 'L';
     const MOVE = 'M';
 
-    /** @var  Rover */
+    /** @var  Rover Rover object that need to move */
     protected $rover;
 
-    /** @var  string */
+    /** @var  string  Sequence of instructions provided */
     protected $instructions;
 
-    /** @var Location  */
+    /** @var Location  Higher location boundary for rover to move */
     protected $upperLimit;
 
-    /** @var Location  */
+    /** @var Location Lower location boundary for rover to move */
     protected $lowerLimit;
 
     /**
@@ -40,6 +40,7 @@ class Moves
     }
 
     /**
+     * Returns array of valid moves
      * @return array
      * @codeCoverageIgnore
      */
@@ -53,6 +54,8 @@ class Moves
     }
 
     /**
+     * Processes the Rover moves based on provided instructions and returns last
+     * location
      * @return Location
      * @throws \Exception
      */

@@ -8,16 +8,17 @@ use Rover\Models\Rover;
 
 class RoverManager
 {
-    /** @var  RoverManager */
+    /** @var  RoverManager Rover manager*/
     protected static $instance;
 
-    /** @var  Moves[] */
+    /** @var  Moves[] Array of rover and associated instructions*/
     protected $moves;
 
-    /** @var  Location */
-    public static $upperRightCoordinates;
+    /** @var  Location  Maximum bound location for all Rovers*/
+    public $upperRightCoordinates;
 
     /**
+     * Returns singleton instance of Rover Manager
      * @return RoverManager
      */
     public static function getInstance(): RoverManager
@@ -31,6 +32,7 @@ class RoverManager
     }
 
     /**
+     * Queues rovers in processing list
      * @param Moves $moves
      */
     protected function enqueue(Moves $moves)
@@ -39,11 +41,12 @@ class RoverManager
     }
 
     /**
+     * Executes rovers movement
      * @throws \Exception
      */
     public function moveRovers()
     {
-        if (!self::$upperRightCoordinates instanceof Location) {
+        if (!$this->upperRightCoordinates instanceof Location) {
             throw new \Exception('Initial location not set yet');
         }
         foreach ($this->moves as $move) {
@@ -52,13 +55,14 @@ class RoverManager
     }
 
     /**
+     * Reads rover instructions from provided file
      * @param string $filename
      * @throws \Exception
      */
     public function readInputFromFile(string $filename)
     {
         // Reset upper right co-ordinates
-        self::$upperRightCoordinates = null;
+        $this->upperRightCoordinates = null;
         $position = null;
         $file = @fopen($filename, "r");
         if (!$file) {
@@ -71,8 +75,8 @@ class RoverManager
                 continue;
             }
             // First line should be the upper right coordinates of plateau
-            if (self::$upperRightCoordinates == null) {
-                self::$upperRightCoordinates =
+            if ($this->upperRightCoordinates == null) {
+                $this->upperRightCoordinates =
                     Location::getLocationFromString($line, false);
                 continue;
             }
@@ -96,7 +100,7 @@ class RoverManager
                 new Moves(
                     $rover,
                     $this->getInstructions($line),
-                    self::$upperRightCoordinates,
+                    $this->upperRightCoordinates,
                     new Location(0, 0, null)
                 )
             );
@@ -114,6 +118,7 @@ class RoverManager
     }
 
     /**
+     * Writes positions of rover in file
      * @param string $filename
      */
     public function writeOutPutToFile(string $filename)
@@ -127,6 +132,7 @@ class RoverManager
     }
 
     /**
+     * Validates and returns instructions for given string
      * @param string $line
      * @return string
      * @throws \Exception
@@ -134,8 +140,7 @@ class RoverManager
     private function getInstructions(string $line)
     {
         $line = trim($line);
-        $lmrString =
-            Moves::TURN_LEFT . Moves::TURN_RIGHT . Moves::MOVE;
+        $lmrString = implode('', Moves::validMoves());
         if (preg_match("/[{^$lmrString}]+$/", $line) === 0) {
             throw new \Exception("Invalid move sequence: {$line}");
         }

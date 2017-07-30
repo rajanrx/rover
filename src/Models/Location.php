@@ -9,13 +9,13 @@ class Location
     const SOUTH = 'S';
     const WEST = 'W';
 
-    /** @var int */
+    /** @var int X co-ordinate in 2D space */
     public $x;
 
-    /** @var int */
+    /** @var int Y co-ordinate in 2D space */
     public $y;
 
-    /** @var  string */
+    /** @var  string  Geographical direction */
     public $orientation;
 
     /**
@@ -32,9 +32,10 @@ class Location
     }
 
     /**
+     * Returns available geographical directions
      * @return array
      */
-    public static function getClockwiseOrientations()
+    public static function getClockwiseOrientations(): array
     {
         return [
             self::NORTH,
@@ -45,6 +46,7 @@ class Location
     }
 
     /**
+     * Returns string format for given Location
      * @return string
      */
     public function toString(): string
@@ -53,6 +55,7 @@ class Location
     }
 
     /**
+     * Extracts Location from given string
      * @param string  $line
      * @param boolean $orientationRequired
      * @return Location

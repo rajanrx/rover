@@ -1,0 +1,19 @@
+language: php
+sudo: false
+
+php:
+  - 7.1
+  - nightly
+
+cache:
+  directories:
+    - vendor
+
+# Don't run the default Travis PHP install step
+install: true
+
+before_install:
+  - composer install
+
+script:
+  - ./travis/criticalTest.sh
