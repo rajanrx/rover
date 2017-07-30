@@ -16,7 +16,7 @@ and then run command
 php command.php --input 'data/sample-input.txt' --output 'data/sample-output.txt'
 ```
 
-# Test Coverage  (100% covered)
+# Test Coverage
 
 To generate the report run the following command and you can access coverage html
 ```
