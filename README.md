@@ -6,7 +6,7 @@ Mars Rover Code Challenge
 
 You need to have PHP 7.1 or above to run this project.
 
-Either clone this Repo , install dependencies
+Clone this Repo , install dependencies
 ```
 git clone https://github.com/rajanrx/rover.git && composer install
 ```
