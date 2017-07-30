@@ -57,15 +57,17 @@ class RoverManager
      */
     public function readInputFromFile(string $filename)
     {
+        // Reset upper right co-ordinates
+        self::$upperRightCoordinates = null;
         $position = null;
-        $file = fopen($filename, "r");
+        $file = @fopen($filename, "r");
         if (!$file) {
             throw new \Exception('File not found');
         }
         while (!feof($file)) {
-            $line = fgets($file);
-            // TODO: check for comments
-            if (empty($line)) {
+            $line = trim(fgets($file));
+            // TODO: support comments on text file
+            if (strlen($line) == 0) {
                 continue;
             }
             // First line should be the upper right coordinates of plateau
@@ -93,7 +95,7 @@ class RoverManager
             $this->enqueue(
                 new Moves(
                     $rover,
-                    $this->getMoves($line),
+                    $this->getInstructions($line),
                     self::$upperRightCoordinates,
                     new Location(0, 0, null)
                 )
@@ -116,18 +118,28 @@ class RoverManager
      */
     public function writeOutPutToFile(string $filename)
     {
+        $output = '';
         foreach ($this->moves as $move) {
-            echo "{$move->getRover()->getLocation()->toString()} \n";
+            $output .=
+                "{$move->getRover()->getLocation()->toString()}" . PHP_EOL;
         }
+        file_put_contents($filename, $output);
     }
 
     /**
      * @param string $line
      * @return string
+     * @throws \Exception
      */
-    private function getMoves(string $line)
+    private function getInstructions(string $line)
     {
-        // TODO: Validate
-        return trim($line);
+        $line = trim($line);
+        $lmrString =
+            Moves::TURN_LEFT . Moves::TURN_RIGHT . Moves::MOVE;
+        if (preg_match("/[{^$lmrString}]+$/", $line) === 0) {
+            throw new \Exception("Invalid move sequence: {$line}");
+        }
+
+        return $line;
     }
 }

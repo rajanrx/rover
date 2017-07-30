@@ -41,6 +41,7 @@ class Moves
 
     /**
      * @return array
+     * @codeCoverageIgnore
      */
     public static function validMoves(): array
     {
@@ -80,6 +81,7 @@ class Moves
 
     /**
      * @return Rover
+     * @codeCoverageIgnore
      */
     public function getRover(): Rover
     {
@@ -87,6 +89,7 @@ class Moves
     }
 
     /**
+     * Check if Rover is trying to cross defined boundaries
      * @throws \Exception
      */
     public function checkOutOfBounds()

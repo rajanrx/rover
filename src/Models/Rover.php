@@ -49,7 +49,7 @@ class Rover implements MovableInterface
      * @param $value
      * @return Location
      */
-    public function turn($value): Location
+    protected function turn($value): Location
     {
         $orientations = Location::getClockwiseOrientations();
         $currentPos = array_search($this->location->orientation, $orientations);
