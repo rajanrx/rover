@@ -72,11 +72,11 @@ class Moves
                     break;
                 case self::MOVE:
                     $this->rover->move();
+                    $this->checkOutOfBounds();
                     break;
                 default:
                     throw new \Exception('Invalid move command');
             }
-            $this->checkOutOfBounds();
         }
 
         return $this->rover->getLocation();
